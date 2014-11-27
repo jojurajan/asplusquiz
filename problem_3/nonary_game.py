@@ -1,7 +1,7 @@
 from itertools import combinations
 
 
-class DigitalRoot(object):
+class NonaryGame(object):
     '''
     Find all valid combinations based on the given criteria
         - length of digits should be between 3-5, both included
@@ -69,11 +69,11 @@ class DigitalRoot(object):
         for size in xrange(3, 6):
             for lst in combinations(self.nums, size):
                 if self._validate(lst):
-                    valid_lst.append(lst)
+                    valid_lst.append(list(lst))
 
         valid_lst.sort()
         return valid_lst
 
 
 if __name__ == '__main__':
-    print DigitalRoot().valid_groups()
+    print NonaryGame().valid_groups()
