@@ -1,15 +1,17 @@
 import csv
 
 
-class IP2CountryMap(object):
+class CountryIp(object):
     '''
     Find the country to which the given IP is allocated
     '''
     ip_map = None
     ip_ranges = None
 
-    @classmethod
-    def _set_ip_country_map(cls):
+    def __init__(self):
+        self._set_ip_country_map()
+
+    def _set_ip_country_map(self):
         '''
         * Load data from IpToCountry.csv into a mapping of the following structure:
             ip_identifier_range: country_name
@@ -17,13 +19,13 @@ class IP2CountryMap(object):
         '''
         with open('IpToCountry.csv', 'r') as f:
             csv_file = csv.reader(f)
-            cls.ip_map = {}
-            cls.ip_ranges = []
+            self.ip_map = {}
+            self.ip_ranges = []
             for x in csv_file:
                 if x[0][0] != '#':
                     map_key = (int(x[0]), int(x[1]))
-                    cls.ip_map[map_key] = x[6]
-                    cls.ip_ranges.append(map_key)
+                    self.ip_map[map_key] = x[6]
+                    self.ip_ranges.append(map_key)
 
     def search(self, ip_addr):
         '''
@@ -71,8 +73,7 @@ class IP2CountryMap(object):
         except:
             raise Exception('Invalid ip')
 
-IP2CountryMap._set_ip_country_map()
 
 if __name__ == '__main__':
     ip_addr = raw_input('IP -> ')
-    print IP2CountryMap().search(ip_addr)
+    print CountryIp().search(ip_addr)
